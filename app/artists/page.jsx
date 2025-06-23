@@ -1,15 +1,14 @@
 "use client";
 
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import mock_data from "../../public/MOCK_DATA.json";
 import Header from "../../components/Header.jsx";
 
-export default function ArtistsPage() {
+function ArtistsContent() {
   const searchParams = useSearchParams();
-  const categoryParam = searchParams.get('category');
-  
+  const categoryParam = searchParams.get("category");
+
   const [filters, setFilters] = useState({
     category: "",
     location: "",
@@ -19,9 +18,9 @@ export default function ArtistsPage() {
   // Set initial filter based on URL parameter
   useEffect(() => {
     if (categoryParam) {
-      setFilters(prev => ({
+      setFilters((prev) => ({
         ...prev,
-        category: categoryParam
+        category: categoryParam,
       }));
     }
   }, [categoryParam]);
@@ -87,8 +86,7 @@ export default function ArtistsPage() {
   });
 
   return (
-    <div className="min-h-screen">
-      <Header/>
+    <>
       {/* Filters */}
       <section className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between px-4">
         <div>
@@ -147,8 +145,12 @@ export default function ArtistsPage() {
             <h3 className="text-xl font-bold mb-2">
               {artist.first_name + " " + artist.last_name}
             </h3>
-            <p className="text-sm text-gray-600">Category: {artist.category}</p>
-            <p className="text-sm text-gray-600">Location: {artist.location}</p>
+            <p className="text-sm text-gray-600">
+              Category: {artist.category}
+            </p>
+            <p className="text-sm text-gray-600">
+              Location: {artist.location}
+            </p>
             <p className="text-sm text-gray-600 mb-4">Fee: ₹{artist.fee}</p>
             <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
               Ask for Quote
@@ -156,6 +158,17 @@ export default function ArtistsPage() {
           </div>
         ))}
       </section>
+    </>
+  );
+}
+
+export default function ArtistsPage() {
+  return (
+    <div className="min-h-screen">
+      <Header />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ArtistsContent />
+      </Suspense>
     </div>
   );
 }

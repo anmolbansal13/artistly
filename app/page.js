@@ -10,7 +10,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="flex flex-col items-center text-center py-12 px-4 bg-gradient-to-r from-blue-100 to-purple-100">
         <h2 className="text-4xl font-bold mb-4">Connect with Talented Artists</h2>
-        <p className="text-lg mb-6 max-w-xl">Find singers, dancers, speakers, and DJs for your events and shows. Let's make your vision come alive!</p>
+        <p className="text-lg mb-6 max-w-xl">Find singers, dancers, speakers, and DJs for your events and shows. Lets make your vision come alive!</p>
         <Link href="/artists">
           <button className="bg-blue-600 text-white px-6 py-2 rounded-full text-lg hover:bg-blue-700 transition">Explore Artists</button>
         </Link>
